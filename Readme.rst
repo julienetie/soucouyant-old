@@ -9,7 +9,7 @@ Alpha: Not ready for production.
 SOUCOUYANT
 ==========
 
-Persistent State For Humans
+Clean - Functional - Persistent State For Humans
 `````````````
 
 A counter in Soucouyant
@@ -26,7 +26,7 @@ A counter in Soucouyant
     
 A counter in Redux
 ------------------
-.. code:: javascript    
+.. code::     
     
     const counter = (state = 0, action) => {
 	  switch (action.type) {
