@@ -2,12 +2,12 @@
  Accumilates frames.
 
 **/
-export const accumilator = [];
-const uniqueStateReferences = {};
+const accumilator = [[]];
+const uniqueStateReferences = [];
 
 const persistence = {
     options: {
-        mergeFidelity: NaN,
+        mergeFidelity: 0,
     }
 };
 
@@ -17,7 +17,7 @@ export const persistenceSettings = options => Object.assign(persistence.options,
 
 // Adds a new state to the accumilator 
 // May create a new frame to do so.
-const addNewState = (state, identity) => {
+export const addNewState = (state, identity) => {
     const currentTimeStamp = Date.now();
     const mergeFidelity = persistence.options.mergeFidelity;
     // Check unique states and add the state if does not yet exist.
@@ -53,15 +53,27 @@ const addNewState = (state, identity) => {
     if (withinMergePeriod) {
         // merge to last frame
         lastFrame.push([identity, directReference]);
-    }else{
-    	// Add new frame.
-    	accumilator.push([
-    		currentTimeStamp,
-    		[
-    			identity,
-    			directReference
-    		]
-    	]);
+    } else {
+        // Add new frame.
+        accumilator.push([
+            currentTimeStamp, [
+                identity,
+                directReference
+            ]
+        ]);
     }
+    // console.log('accumilator', JSON.stringify(accumilator, null, '\t'));
 }
 
+export const getCurrentState = (identity) => {
+    const accumilatorLength = accumilator.length;
+    for (let i = accumilatorLength; i > -1; --i) {
+        const frame = accumilator[i] || [];
+        const frameLength = frame.length;
+        for (let j = 0; j < frameLength; j++) {
+            if (frame[j][0] === identity) {
+                return frame[j][1];
+            }
+        }
+    }
+}

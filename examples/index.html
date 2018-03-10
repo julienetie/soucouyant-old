@@ -17,38 +17,38 @@
 
     const varyCounter = amount => o.cat1.cat2.counter(state => state + amount); // Modify state
 
-    const inc = varyCounter(1); // Increment  by 1
+    // const inc = varyCounter(); // Increment  by 1
 
-    const dec = varyCounter(-1); // Decrement  by 1
+    // const dec = varyCounter(-1); // Decrement  by 1
 
-    console.info('inc:', inc, 'dec:', dec);
-
-
+    // console.info('inc:', inc, 'dec:', dec);
 
 
-    // Random particles
-    const randpmPos = () => ~~(Math.random() * 200); // Random position
-    const randomMovement = () => !!Math.round(Math.random()); // Random movement
-
-    Collection([...Array(64)]) // Create collection
-    `effect > random > particlesColl`;
-
-    const particlesColl = o.effect.random.particlesColl; // Reference path
-
-    const particlesEntries = particlesColl.entries.map((_,i )=> ([i,{ // and modify.
-        isVibrating: randomMovement(),
-        xPosition: randpmPos(),
-        yPosition: randpmPos(),
-        zPosition: randpmPos()
-    }]));
-
-    particlesColl.update(particlesEntries); // Update the collection.
 
 
-    console.info('particlesColl.entries:', particlesColl.entries)
-    console.info('particlesColl.lastState:', particlesColl.lastState)
-    window.o = o;
-    window.Collection = Collection;
+    // // Random particles
+    // const randpmPos = () => ~~(Math.random() * 200); // Random position
+    // const randomMovement = () => !!Math.round(Math.random()); // Random movement
+
+    // Collection([...Array(64)]) // Create collection
+    // `effect > random > particlesColl`;
+
+    // const particlesColl = o.effect.random.particlesColl; // Reference path
+
+    // const particlesEntries = particlesColl.entries.map((_,i )=> ([i,{ // and modify.
+    //     isVibrating: randomMovement(),
+    //     xPosition: randpmPos(),
+    //     yPosition: randpmPos(),
+    //     zPosition: randpmPos()
+    // }]));
+
+    // particlesColl.update(particlesEntries); // Update the collection.
+
+
+    // console.info('particlesColl.entries:', particlesColl.entries)
+    // console.info('particlesColl.lastState:', particlesColl.lastState)
+    // window.o = o;
+    // window.Collection = Collection;
 
     // console.info('Entries', newColl.entries);
     // console.info('firstId', newColl.firstId);

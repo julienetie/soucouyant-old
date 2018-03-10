@@ -1,11 +1,19 @@
 import StateObject from './state-object';
+import { addNewState, getCurrentState } from './accumilator';
 
-const stateMachine = (state, stateObject) => callback => {
-    state = callback(state);
-    return state;
+
+const stateMachine = (state, identity) => {
+    return callback => {
+        const lastState = state === null ? getCurrentState(identity) : state;
+        const newState = callback(lastState);
+        addNewState(newState, identity);
+        if (state !== null) {
+            state = null;
+        }
+    }
 }
 
-
+let identity = -1;
 const createAddress = (addressParts, count, state, length, isCollection, nextPart) => {
     if (nextPart === null) {
         const newPart = (addressParts[count] + '').trim();
@@ -18,9 +26,9 @@ const createAddress = (addressParts, count, state, length, isCollection, nextPar
         const isEndOfPath = count === length - 1;
         const newPart = (addressParts[count] + '').trim();
         if (nextPart[newPart] === undefined) {
-
-            const machine = isEndOfPath ? isCollection ? state : stateMachine(state, nextPart[newPart]) : {};
-            nextPart = nextPart[newPart] = machine
+            identity++;
+            const machine = isEndOfPath ? isCollection ? state : stateMachine(state, identity) : {};
+            nextPart = nextPart[newPart] = machine;
             if (isEndOfPath) {
                 return;
             }
