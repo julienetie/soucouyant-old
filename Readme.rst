@@ -24,7 +24,7 @@ A counter in Soucouyant
     
     varyCounter(-1);                                                             // Decrement  by 1
     
-A counter in Redux
+Redux example
 ------------------
 .. code::     
     
@@ -46,15 +46,35 @@ A counter in Redux
 
     store.dispatch({type: 'INCREMENT'});
     
+Create and update a collection
+-------------------
+.. code:: javascript
+
+    Collection([...Array(256)])                                 // Create collection
+    `effect > random > particlesColl`;
+
+    const randpmPos = () => ~~(Math.random() * 200);            // Random position
+    const randomMovement = () => !!Math.round(Math.random());   // Random movement
+
+    const particlesEntries = o.effect                           // Assign entires
+    .random.particlesColl.entries.map(_ => ({                   // and modify.
+         isVibrating: randomMovement(),
+         xPosition: randpmPos(),
+         yPosition: randpmPos(),
+         zPosition: randpmPos()
+    });
+
+    o.effect.random.particlesColl.update(particlesEntries);     // Update the collection.
+
 Features
 ------------------
    - Register stateObjects to property paths on the fly.
    - Register Collections to property paths on the fly.
    - Collection entries feature identities.
    - Expose entries and update Collections to modify natively before updating. 
-   - Time travel a state, collection or an entire frame.
-   - Finetune the accumilator
-   - Currently 1kb should not exceed 8kb
+   - Time travel a state, collection or an entire frame - TBA.
+   - Finetune the accumilator - TBA.
+   - Currently 1kb should not exceed 8kb.
    
 
 MIT 2018 © Julien Etienne
