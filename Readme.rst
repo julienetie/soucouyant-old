@@ -29,16 +29,16 @@ Redux example
 .. code::     
     
     const counter = (state = 0, action) => {
-	  switch (action.type) {
-	  	case 'INCREMENT':
-	     state++;
-	    	break;
-	    case 'DECREMENT':
-	    	state--;
-	      break;
-	  }
-	  return state;
-	}
+    switch (action.type) {
+      case 'INCREMENT':
+       state++;
+        break;
+      case 'DECREMENT':
+        state--;
+        break;
+    }
+    return state;
+  }
 
     const store = Redux.createStore(counter);
 
