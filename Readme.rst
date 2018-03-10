@@ -63,7 +63,7 @@ Create and update a collection
          xPosition: randpmPos(),
          yPosition: randpmPos(),
          zPosition: randpmPos()
-    });
+    }));
 
     particlesColl.update(particlesEntries);      // Update the collection.
 
