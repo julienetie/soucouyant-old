@@ -11,9 +11,11 @@ SOUCOUYANT
 
 Persistent State For Humans
 `````````````
+
+A counter in Soucouyant
+------------------
 .. code:: javascript
-    
-    // A counter in 4 lines.
+
     o`cat1 > cat2 > counter ${0}`;                                               // Register stateObject
     
     const varyCounter = amount => o.cat1.cat2.counter(state => state + amount);  // Modify state
@@ -21,6 +23,28 @@ Persistent State For Humans
     varyCounter(1);                                                              // Increment  by 1
     
     varyCounter(-1);                                                             // Decrement  by 1
+    
+A counter in Redux
+------------------
+.. code:: javascript    
+    
+    const counter = (state = 0, action) => {
+	  switch (action.type) {
+	  	case 'INCREMENT':
+	     state++;
+	    	break;
+	    case 'DECREMENT':
+	    	state--;
+	      break;
+	  }
+	  return state;
+	}
+
+	const store = Redux.createStore(counter);
+
+	store.dispatch({type: 'DECREMENT'});
+
+  	store.dispatch({type: 'INCREMENT'});
     
 | 
 | **stateObject** is represented as a function.
