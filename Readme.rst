@@ -1,6 +1,6 @@
 
 ```
-Alpha: Not ready for production.
+Alpha: Prototype, not ready for production.
 ```
 
 
