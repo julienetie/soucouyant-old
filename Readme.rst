@@ -14,9 +14,9 @@ Persistent State For Humans
 .. code:: javascript
     
     // A counter in 4 lines.
-    o`counterApp > category > counter ${0}`;                           // Register the stateObject
-    // Modify the default state
-    const varyCounter = amount => o.counterApp.category.counter (state => state + amount);    
+    o`cat1 > cat2 > counter ${0}`;                                     // Register the stateObject
+    
+    const varyCounter = amount => o.cat1.cat2.counter (state => state + amount);  // Modify state   
     
     varyCounter(1);                                                    // Increment  by 1                                     
     
