@@ -50,12 +50,11 @@ Create and update a collection
 -------------------
 .. code:: javascript
 
+    const randpmPos = () => ~~(Math.random() * 200);             // Random position
+    const randomMovement = () => !!Math.round(Math.random());    // Random movement
+
     Collection([...Array(256)])                                  // Create collection
     `effect > random > particlesColl`;
-
-    const randpmPos = () => ~~(Math.random() * 200);             // Random position
-    
-    const randomMovement = () => !!Math.round(Math.random());    // Random movement
 
     const particlesColl = o.effect.random.particlesColl;         // Reference path
     
