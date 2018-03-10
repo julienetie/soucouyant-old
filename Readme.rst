@@ -14,13 +14,13 @@ Persistent State For Humans
 .. code:: javascript
     
     // A counter in 4 lines.
-    o`cat1 > cat2 > counter ${0}`;                                     // Register the stateObject
+    o`cat1 > cat2 > counter ${0}`;                                                // Register the stateObject
     
-    const varyCounter = amount => o.cat1.cat2.counter (state => state + amount);  // Modify state   
+    const varyCounter = amount => o.cat1.cat2.counter (state => state + amount);  // Modify state
     
-    varyCounter(1);                                                    // Increment  by 1                                     
+    varyCounter(1);                                                               // Increment  by 1
     
-    varyCounter(-1);                                                   // Decrement  by 1
+    varyCounter(-1);                                                              // Decrement  by 1
     
 | 
 | **stateObject** is represented as a function.
