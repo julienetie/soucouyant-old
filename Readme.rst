@@ -81,7 +81,7 @@ Features
    - Register Collections to property paths on the fly.
    - Collection entries feature identities.
    - Expose entries and update Collections to modify natively before updating. 
-   - Persistent time machine.
+   - Persistent time machine - TBA.
    - Time travel a state, collection or an entire frame - TBA.
    - Persistent options - TBA.
    - Currently 1kb should not exceed 8kb.
