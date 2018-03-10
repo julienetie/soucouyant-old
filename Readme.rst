@@ -65,7 +65,7 @@ Create and update a collection
          zPosition: randpmPos()
     });
 
-    o.effect.random.particlesColl.update(particlesEntries);      // Update the collection.
+    particlesColl.update(particlesEntries);      // Update the collection.
 
 Features
 ------------------
