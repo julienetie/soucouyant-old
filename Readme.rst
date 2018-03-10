@@ -13,13 +13,13 @@ Persistent State For Humans
 `````````````
 .. code:: javascript
     
-    // Counter Example:
-    const counter = o(0);                                              // Create the stateObject
-    o`things : variable ${counter}`;                                   // Register the stateObject
-
-    const varyCounter = amount => counter(state => state + amount);    // Return the new state
+    // A counter in 4 lines.
+    o`counterApp > category > counter ${0}`;                           // Register the stateObject
+    
+    const varyCounter = amount => counter(state => state + amount);    // Modify the default state
     
     varyCounter(1);                                                    // Increment  by 1                                     
+    
     varyCounter(-1);                                                   // Decrement  by 1
     
 | 
