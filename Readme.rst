@@ -46,6 +46,12 @@ Redux example
 
     store.dispatch({type: 'INCREMENT'});
     
+Use Soucouyant
+-------------------
+.. code:: javascript
+    import { o, Collection } from 'soucouyant';
+    
+
 Create and update a collection
 -------------------
 .. code:: javascript
