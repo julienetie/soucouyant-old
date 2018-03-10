@@ -40,45 +40,21 @@ A counter in Redux
 	  return state;
 	}
 
-	const store = Redux.createStore(counter);
+    const store = Redux.createStore(counter);
 
-	store.dispatch({type: 'DECREMENT'});
+    store.dispatch({type: 'DECREMENT'});
 
-  	store.dispatch({type: 'INCREMENT'});
+    store.dispatch({type: 'INCREMENT'});
     
-| 
-| **stateObject** is represented as a function.
-| Register an address (optional categories) and a **stateType** (A constraint on values)
-|
-
-    "State: The particular condition that someone or something is in at a specific time."
-
-Soucouyant differentiates between collections and state. A collection is an accumilation of items that are modeled by a stateObject.
-
-.. code:: javascript
-    
-    // An example of a collection. 
-    const todoModel = o({
-      text: String
-      isComplete: NaN
-    }); // Id is not required.
-
-    o`todoMVC > todoList : Object ${todoModel}`; // Register todoModel
-
-    const todosColl = c(Array,todoModel, todoDefaults); // Creates a collection
-
-    todosColl.push()
-    todosColl.index(0)                  // Gets stateObject by Index
-    todosColl.id(3)                     // Gets stateObject by id 
-    todosColl.index(2).id               // Unique Id
-    todosColl.id(7).index               // gets index 
-    todosColl.offset(value)
-    todosColl.index(2).remove()
-    todosCall.removeAll()
-    todosCall.cycle(-1)                   // Shift all forwards or backwards and preserve
-    todosCall.cycle(-1,true)              // Will destroy the last pushed out leaving the beginning empty
-    
-
+Features
+------------------
+   - Register stateObjects to property paths on the fly.
+   - Register Collections to property paths on the fly.
+   - Collection entries feature identities.
+   - Expose entries and update Collections to modify natively before updating. 
+   - Time travel a state, collection or an entire frame.
+   - Finetune the accumilator
+   - Currently 1kb should not exceed 8kb
    
 
 MIT 2018 © Julien Etienne
