@@ -1,0 +1,46 @@
+{
+  "name": "soucouyant",
+  "version": "0.0.1",
+  "description": "A Persistent State Machine For Humans",
+  "main": "dist/soucouyant.umd.js",
+  "jsnext:main": "dist/soucouyant.js",
+  "repository": "git@github.com:julienetie/soucouyant.git",
+  "author": "Julien Etienne <j8@protonmail.ch>",
+  "license": "MIT",
+  "scripts": {
+    "build": "./node_modules/.bin/rollup -c ./rollup/config.es.js && ./node_modules/.bin/rollup -c ./rollup/config.umd.js",
+    "watch": "./node_modules/.bin/rollup -c  ./rollup/config.umd.js --watch",
+    "test": "tape -r babel-register ./test/**/**.js | faucet"
+  },
+  "keywords": [
+    "state management",
+    "state",
+    "time travel",
+    "history",
+    "state machine",
+    "state engine",
+    "presistent state"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.7.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "faucet": "^0.0.1",
+    "rollup": "^0.56.5",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-commonjs": "^9.0.0",
+    "rollup-plugin-eslint": "^4.0.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-watch": "^4.3.1",
+    "tape": "^4.8.0"
+  },
+  "dependencies": {
+    "chokidar": "^2.0.2"
+  }
+}
