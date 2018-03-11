@@ -13,9 +13,9 @@
     const o = soucouyant.o;
 
     // Counter
-    o `cat1 > cat2 > counter ${0}`; // Register stateObject
+    // o `cat1 > cat2 > counter ${0}`; // Register stateObject
 
-    const varyCounter = amount => o.cat1.cat2.counter(state => state + amount); // Modify state
+    // const varyCounter = amount => o.cat1.cat2.counter(state => state + amount); // Modify state
 
     // const inc = varyCounter(); // Increment  by 1
 
@@ -27,25 +27,25 @@
 
 
     // // Random particles
-    // const randpmPos = () => ~~(Math.random() * 200); // Random position
-    // const randomMovement = () => !!Math.round(Math.random()); // Random movement
+    const randpmPos = () => ~~(Math.random() * 200); // Random position
+    const randomMovement = () => !!Math.round(Math.random()); // Random movement
 
-    // Collection([...Array(64)]) // Create collection
-    // `effect > random > particlesColl`;
+    Collection([...Array(64)]) // Create collection
+    `effect > random > particlesColl`;
 
-    // const particlesColl = o.effect.random.particlesColl; // Reference path
+    const particlesColl = o.effect.random.particlesColl; // Reference path
 
-    // const particlesEntries = particlesColl.entries.map((_,i )=> ([i,{ // and modify.
-    //     isVibrating: randomMovement(),
-    //     xPosition: randpmPos(),
-    //     yPosition: randpmPos(),
-    //     zPosition: randpmPos()
-    // }]));
+    const particlesEntries = particlesColl.entries.map((_,i )=> ([i,{ // and modify.
+        isVibrating: randomMovement(),
+        xPosition: randpmPos(),
+        yPosition: randpmPos(),
+        zPosition: randpmPos()
+    }]));
 
-    // particlesColl.update(particlesEntries); // Update the collection.
+    particlesColl.update(particlesEntries); // Update the collection.
 
 
-    // console.info('particlesColl.entries:', particlesColl.entries)
+    console.info('particlesColl.entries:', particlesColl.entries)
     // console.info('particlesColl.lastState:', particlesColl.lastState)
     // window.o = o;
     // window.Collection = Collection;

@@ -58,7 +58,7 @@ var addNewState = function addNewState(state, identity) {
         // Add new frame.
         accumilator.push([currentTimeStamp, [identity, directReference]]);
     }
-    // console.log('accumilator', JSON.stringify(accumilator, null, '\t'));
+    console.log('accumilator', JSON.stringify(accumilator, null, '\t'));
 };
 
 var getCurrentState = function getCurrentState(identity) {
@@ -137,10 +137,11 @@ var checkType = function checkType(type) {
     }
 };
 
+var identity$1 = -1;
 var collection = (function (type) {
     var hasEntries = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-
+    identity$1++;
     // Get the corresponding dataset according to the type.
     var dataset = checkType(type);
     var isArray = Array.isArray(dataset);
@@ -154,11 +155,14 @@ var collection = (function (type) {
     // A Deletable clone. 
     var initalDataClone = Array.from(data);
 
+    // Inital update
+    addNewState(data, identity$1);
+
     var properties = {
         data: data,
         initialData: initalDataClone, // Clone inital data.
         get entries() {
-            return this.data;
+            return getCurrentState(identity$1);
         },
         get states() {
             return this.data.map(function (entry) {
@@ -171,8 +175,7 @@ var collection = (function (type) {
             });
         },
         update: function update(newEntries) {
-            this.data = newEntries;
-            return this;
+            addNewState(newEntries, identity$1);
         },
 
         get firstId() {

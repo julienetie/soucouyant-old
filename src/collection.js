@@ -1,6 +1,6 @@
 import StateObject from './state-object';
 import createAddress from './create-address';
-
+import { addNewState, getCurrentState } from './accumilator';
 
 const checkType = type => {
     switch (type) {
@@ -16,8 +16,9 @@ const checkType = type => {
     }
 }
 
+let identity  = -1;
 export default (type, hasEntries = false) => {
-
+ identity++;
     // Get the corresponding dataset according to the type.
     const dataset = checkType(type);
     const isArray = Array.isArray(dataset);
@@ -29,11 +30,14 @@ export default (type, hasEntries = false) => {
     // A Deletable clone. 
     let initalDataClone = Array.from(data);
 
+    // Inital update
+    addNewState(data, identity);
+
     const properties = {
         data,
         initialData: initalDataClone, // Clone inital data.
         get entries() {
-            return this.data;
+            return getCurrentState(identity);
         },
         get states() {
             return this.data.map(entry => entry[1]);
@@ -42,8 +46,7 @@ export default (type, hasEntries = false) => {
             return this.data.map(entry => entry[0]);
         },
         update(newEntries) {
-            this.data = newEntries;
-            return this;
+            addNewState(newEntries, identity);
         },
         get firstId() {
             return this.data[0][0];
