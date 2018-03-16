@@ -4,6 +4,10 @@
 	(factory((global.soucouyant = {})));
 }(this, (function (exports) { 'use strict';
 
+var cache = {
+	subscriptions: {}
+};
+
 /** 
  Accumilates frames.
 
@@ -58,7 +62,21 @@ var addNewState = function addNewState(state, identity) {
         // Add new frame.
         accumilator.push([currentTimeStamp, [identity, directReference]]);
     }
-    console.log('accumilator', JSON.stringify(accumilator, null, '\t'));
+
+    console.log('cache', cache);
+    var subscriptions = cache.subscriptions;
+    // Execute subscriptions
+    if (subscriptions[identity] === undefined) {
+        subscriptions[identity] = {};
+    }
+    var subIdentity = subscriptions[identity];
+    var subIdentityLength = Object.keys(subIdentity).length;
+
+    for (var ref in subIdentity) {
+        subIdentity[ref](directReference, identity, currentTimeStamp);
+    }
+
+    // console.log('accumilator', JSON.stringify(accumilator, null, '\t'));
 };
 
 var getCurrentState = function getCurrentState(identity) {
@@ -75,14 +93,29 @@ var getCurrentState = function getCurrentState(identity) {
 };
 
 var stateMachine = function stateMachine(state, identity) {
-    return function (callback) {
+    var stateModifier = function stateModifier(callback) {
         var lastState = state === null ? getCurrentState(identity) : state;
         var newState = callback(lastState);
         addNewState(newState, identity);
         if (state !== null) {
             state = null;
         }
+        return newState;
     };
+
+    stateModifier.subscribe = function (ref, callback) {
+        if (cache.subscriptions[identity] === undefined) {
+            cache.subscriptions[identity] = {};
+        }
+
+        if (cache.subscriptions[identity][ref] === undefined) {
+            cache.subscriptions[identity][ref] = callback;
+        } else {
+            console.error('The subscriptions reference ' + ref + ' is already in use for identity ' + identity);
+        }
+    };
+
+    return stateModifier;
 };
 
 var identity = -1;

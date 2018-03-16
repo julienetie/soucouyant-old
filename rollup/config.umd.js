@@ -6,7 +6,7 @@ import eslint from 'rollup-plugin-eslint';
 export default {
     input: './src/index.js',
     plugins: [
-        eslint(),
+        // eslint(),
         babel({
             babelrc: false,
             presets: ["es2015-rollup"]

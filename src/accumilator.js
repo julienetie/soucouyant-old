@@ -1,8 +1,12 @@
+import cache from './cache';
+
 /** 
  Accumilates frames.
 
 **/
-const accumilator = [[]];
+const accumilator = [
+    []
+];
 const uniqueStateReferences = [];
 
 const persistence = {
@@ -62,6 +66,20 @@ export const addNewState = (state, identity) => {
             ]
         ]);
     }
+
+    console.log('cache',cache)
+    const subscriptions = cache.subscriptions;
+    // Execute subscriptions
+    if (subscriptions[identity] === undefined) {
+        subscriptions[identity] = {};
+    }
+    const subIdentity = subscriptions[identity];
+    const subIdentityLength = Object.keys(subIdentity).length;
+
+    for(let ref in subIdentity){
+        subIdentity[ref](directReference, identity, currentTimeStamp);
+    }
+
     // console.log('accumilator', JSON.stringify(accumilator, null, '\t'));
 }
 
