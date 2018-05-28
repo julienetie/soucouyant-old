@@ -67,7 +67,7 @@ export const addNewState = (state, identity) => {
         ]);
     }
 
-    console.log('cache',cache)
+    // console.log('cache',cache)
     const subscriptions = cache.subscriptions;
     // Execute subscriptions
     if (subscriptions[identity] === undefined) {

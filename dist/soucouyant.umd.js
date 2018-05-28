@@ -4,8 +4,10 @@
 	(factory((global.soucouyant = {})));
 }(this, (function (exports) { 'use strict';
 
+// A cache to register the usage of various methods.
 var cache = {
-	subscriptions: {}
+	subscriptions: {},
+	suspend: {}
 };
 
 /** 
@@ -63,7 +65,7 @@ var addNewState = function addNewState(state, identity) {
         accumilator.push([currentTimeStamp, [identity, directReference]]);
     }
 
-    console.log('cache', cache);
+    // console.log('cache',cache)
     var subscriptions = cache.subscriptions;
     // Execute subscriptions
     if (subscriptions[identity] === undefined) {
@@ -92,6 +94,10 @@ var getCurrentState = function getCurrentState(identity) {
     }
 };
 
+/** 
+ * @param {*} state
+ * @param {number} identity - the unique state subscription identifier
+ */
 var stateMachine = function stateMachine(state, identity) {
     var stateModifier = function stateModifier(callback) {
         var lastState = state === null ? getCurrentState(identity) : state;
@@ -102,43 +108,94 @@ var stateMachine = function stateMachine(state, identity) {
         }
         return newState;
     };
-
+    /** 
+     * subscribe method.
+     * @param {string} ref - subscription reference.
+     * @param {Function} callback - On subscribe callback
+     */
     stateModifier.subscribe = function (ref, callback) {
+        // const hasSuspendedRecord = cache.suspend && cache.suspend[identity] && cache.suspend[identity][ref];
+        // const isSuspended = hasSuspendedRecord ? cache.suspend[identity][ref] : false;
+        // console.log('is suspended', isSuspended, hasSuspendedRecord)
+
         if (cache.subscriptions[identity] === undefined) {
             cache.subscriptions[identity] = {};
+            cache.suspend[identity] = {};
         }
-
         if (cache.subscriptions[identity][ref] === undefined) {
-            cache.subscriptions[identity][ref] = callback;
+            cache.suspend[identity][ref] = false;
+            cache.subscriptions[identity][ref] = function () {
+                if (!cache.suspend[identity][ref]) {
+                    callback.apply(undefined, arguments);
+                }
+            };
         } else {
             console.error('The subscriptions reference ' + ref + ' is already in use for identity ' + identity);
         }
     };
 
+    /** 
+     * suspend method.
+     * @param {string} ref - subscription reference.
+     * @param {Function} callback - On subscribe callback
+     */
+    stateModifier.suspend = function (ref) {
+        // if (cache.suspend[identity] === undefined) {
+        //     cache.suspend[identity] = {};
+        // }
+        // if (cache.suspend[identity][ref] === undefined) {
+        //     ;
+        // }
+        cache.suspend[identity][ref] = true;
+        console.log('cache.suspend', cache.suspend);
+    };
+
     return stateModifier;
 };
 
+// Identity ensures that each 
+// state has a unique key for the: 
+// cacne.subscriptions[identity]
+// as an object.
+// That object then stores references for each
+// subscription. See above.
 var identity = -1;
+/** 
+ * 
+ * @param {Array} addressParts - Namespaces separated by > 
+ * @param {number} count - 0.
+ * @param {*} state
+ * @param {number} length - Number of namespaces.
+ * @param {boolean} isCollection - false.
+ * @param {*} nextPart - null.
+ */
 var createAddress = function createAddress(addressParts, count, state, length, isCollection, nextPart) {
+    var newPart = (addressParts[count] + '').trim();
     if (nextPart === null) {
-        var newPart = (addressParts[count] + '').trim();
+        // Creates the next property as an object.
+        // And assigns the nextPart as that property to 
+        // recycle into it's self to add additional levels.
+        // Once!
         if (StateObject[newPart] === undefined) {
             nextPart = StateObject[newPart] = {};
         } else {
             nextPart = StateObject[newPart];
         }
     } else {
+        // Creates the next property as an object.
+        // And assigns the nextPart as that property to 
+        // recycle into it's self to add additional levels.
+        // beyond the first (I think)
         var isEndOfPath = count === length - 1;
-        var _newPart = (addressParts[count] + '').trim();
-        if (nextPart[_newPart] === undefined) {
+        if (nextPart[newPart] === undefined) {
             identity++;
             var machine = isEndOfPath ? isCollection ? state : stateMachine(state, identity) : {};
-            nextPart = nextPart[_newPart] = machine;
+            nextPart = nextPart[newPart] = machine; // Creates the next property as an object.
             if (isEndOfPath) {
                 return;
             }
         } else {
-            nextPart = nextPart[_newPart];
+            nextPart = nextPart[newPart];
             if (isEndOfPath) {
                 return;
             }
@@ -148,13 +205,35 @@ var createAddress = function createAddress(addressParts, count, state, length, i
     createAddress(addressParts, count, state, length, isCollection, nextPart);
 };
 
+/** 
+ * State object is a side effect represented by the "o" letter.
+ * It takes a namespace address separeated by forward arrows and 
+ * an inital state.
+ *
+ * @param {string} address - The namespace address of the state object.
+ * @param {*} state - The value of the state.
+ * @returns {Function} StateObject.
+ */
 function StateObject(address, state) {
     var addressParts = address[0].split('>');
     var addressPartsLength = addressParts.length;
-
     createAddress(addressParts, 0, state, addressPartsLength, false, null);
     return StateObject;
 }
+
+/**
+ Collections is still a work in progress. 
+ It has a fantastic concept that allows the dev 
+ to pass the collection outside of the api and 
+ then back in to be updated so they can make use of
+ native array and object methods without having to 
+ re-implement them for the API thus keeping the 
+ library tiny. Collections is basically a psuedo
+ dataset, think of arrays but with references.
+
+ E.g. in a todoapp a collection will not require 
+ an id, it comes with one already.
+ */
 
 var checkType = function checkType(type) {
     switch (type) {

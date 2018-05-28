@@ -9,7 +9,7 @@
 <body>
     <script src="../dist/soucouyant.umd.js"></script>
     <script>
-    const Collection = soucouyant.Collection;
+    // const Collection = soucouyant.Collection;
     const o = soucouyant.o;
 
     // Counter
@@ -21,28 +21,32 @@
 
     
 
-
-    counter.subscribe('some new function', (state, identitiy, timeStamp) => {
+   
+    counter.subscribe('123', (state, identitiy, timeStamp) => {
+         console.log('subscribe')
         console.log(' state', state, '\n identitiy', identitiy, '\n timeStamp', timeStamp);
     })
 
 
-    counter.subscribe('another function', (state, identitiy, timeStamp) => {
-        console.log(' state', state, '\n identitiy', identitiy, '\n timeStamp', timeStamp);
-    })
+    // counter.subscribe('another function', (state, identitiy, timeStamp) => {
+    //     console.log(' state', state, '\n identitiy', identitiy, '\n timeStamp', timeStamp);
+    // })
 
 
     // Subscribe
-    const inc = varyCounter(1); // Increment  by 1
-    setTimeout(() => {
-        varyCounter(-5); 
-    }, 1000);
+    // const inc = varyCounter(1); // Increment  by 1
+    // setTimeout(() => {
+    //     varyCounter(-5); 
+    // }, 1000);
 
     setTimeout(() => {
         varyCounter(15); 
-    }, 3000);
+        // counter.suspend('123')
+    }, 1000);
 
-
+   setTimeout(() => {
+        varyCounter(15); 
+    }, 2000);
 
 
     // // // Random particles

@@ -2,6 +2,21 @@ import StateObject from './state-object';
 import createAddress from './create-address';
 import { addNewState, getCurrentState } from './accumilator';
 
+/**
+ Collections is still a work in progress. 
+ It has a fantastic concept that allows the dev 
+ to pass the collection outside of the api and 
+ then back in to be updated so they can make use of
+ native array and object methods without having to 
+ re-implement them for the API thus keeping the 
+ library tiny. Collections is basically a psuedo
+ dataset, think of arrays but with references.
+
+ E.g. in a todoapp a collection will not require 
+ an id, it comes with one already.
+ */
+
+
 const checkType = type => {
     switch (type) {
         case Array:
