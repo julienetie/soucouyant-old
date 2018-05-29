@@ -86,5 +86,44 @@ Features
    - Persistent options - TBA.
    - Currently 1kb should not exceed 8kb.
    
+   
+   
+stateObject API
+################
+
+.subscribe(<ref>,<callback>)
+``````````
+
+.. code:: javascript
+
+    o.button.subscribe('show-menu', (state, identity, timeStamp) => {
+       //
+    });
+
+Subscribe triggers a callback onStateChange of a stateObject.
+
+  - **<ref>** - string | required | A unique subscription reference.
+  - **<callback>** - Function | required | Callback to trigger onStateChange.
+
+*callback (<state>, <identity>, <timeStamp>)*
+
+  - **<state>** - * | The new state.
+  - **<identity>** - number | The internal identity of the stateObject.
+  - **<timeStamp>** - number | The timeStamp of the new state change.
+
+
+.suspend(<ref>)
+``````````
+.. code:: javascript
+
+    o.button.suspend('show-menu');
+
+Suspend allows you to temporarily ignore state changes for a specific subscription by providing the subscription's reference. To reverse a suspended subscription use unsubscribe. 
+
+  - **<ref>** - string | required
+
+
+
+
 
 MIT 2018 © Julien Etienne
