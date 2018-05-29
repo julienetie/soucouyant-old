@@ -120,7 +120,7 @@ Subscribe triggers a callback onStateChange of a stateObject.
 
 Suspend allows you to temporarily ignore state changes for a specific subscription by providing the subscription's reference. To reverse a suspended subscription use unsubscribe. 
 
-  - **<ref>** - string | required | 
+  - **<ref>** - string | required
 
 
 
