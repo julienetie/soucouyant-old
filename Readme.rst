@@ -105,7 +105,7 @@ Subscribe triggers a callback onStateChange of a stateObject.
   - **<ref>** - string | required | A unique subscription reference.
   - **<callback>** - Function | required | Callback to trigger onStateChange.
 
-callback (<state>, <identity>, <timeStamp>)
+*callback (<state>, <identity>, <timeStamp>)*
 
   - **<state>** - * | The new state.
   - **<identity>** - number | The internal identity of the stateObject.
