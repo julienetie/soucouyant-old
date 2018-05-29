@@ -86,5 +86,18 @@ Features
    - Persistent options - TBA.
    - Currently 1kb should not exceed 8kb.
    
+   
+   
+stateObject API
+
+.suspend(<ref>)
+``````````
+Suspend allows you to temporarily ignore state changes for a specific subscription by providing the subscription's reference. To reverse a suspended subscription use unsubscribe. 
+
+- **<ref>** - string | required | 
+
+
+
+
 
 MIT 2018 © Julien Etienne
