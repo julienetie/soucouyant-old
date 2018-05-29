@@ -89,7 +89,7 @@ Features
    
    
 stateObject API
-***************
+################
 
 .subscribe(<ref>,<callback>)
 ``````````
