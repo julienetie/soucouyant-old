@@ -22,10 +22,6 @@ const stateMachine = (state, identity) => {
      * @param {Function} callback - On subscribe callback
      */
     stateModifier.subscribe = (ref, callback) => {
-        // const hasSuspendedRecord = cache.suspend && cache.suspend[identity] && cache.suspend[identity][ref];
-        // const isSuspended = hasSuspendedRecord ? cache.suspend[identity][ref] : false;
-        // console.log('is suspended', isSuspended, hasSuspendedRecord)
-
         if (cache.subscriptions[identity] === undefined) {
             cache.subscriptions[identity] = {};
             cache.suspend[identity] = {};
@@ -47,15 +43,17 @@ const stateMachine = (state, identity) => {
      * @param {string} ref - subscription reference.
      * @param {Function} callback - On subscribe callback
      */
-    stateModifier.suspend = (ref) => {
-        // if (cache.suspend[identity] === undefined) {
-        //     cache.suspend[identity] = {};
-        // }
-        // if (cache.suspend[identity][ref] === undefined) {
-        //     ;
-        // }
-        cache.suspend[identity][ref] = true
-        console.log('cache.suspend', cache.suspend)
+    stateModifier.suspend = ref => {
+        cache.suspend[identity][ref] = true;
+    }
+
+    /** 
+     * suspend method.
+     * @param {string} ref - subscription reference.
+     * @param {Function} callback - On subscribe callback
+     */
+    stateModifier.unsubscribe = ref => {
+        delete cache.subscriptions[identity][ref];  
     }
 
     return stateModifier;
