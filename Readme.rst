@@ -91,6 +91,51 @@ Features
 stateObject API
 ################
 
+.stateObject(<callback>) :: Set state
+``````````
+
+.. code:: javascript
+
+    o.button(state => state + 100);
+    
+    // or
+    
+    o.button(function(state){
+       return state + 100;
+    });
+
+Set the new state of a stateObject. State is set by returning the new value, you are also able to access the last state.
+
+  - **<callback>** - Function | required | Callback for state object.
+  
+*callback (<state>)*
+
+  - **<state>** - * | required | The last state.
+  
+
+
+.stateObject(<callback>) :: Get state
+``````````
+
+.. code:: javascript
+
+    o.button(state => void showSideBar(state));
+    
+    // or
+    
+    o.button(function(state){
+        showSideBar(state);
+    });
+
+Get the last state of a stateObject. Because state is set by the return value, if you are checking the state without changing state, undefined must be returned. void ensures undefined is returned when using state inline. 
+
+  - **<callback>** - Function | required | Callback for state object.
+  
+*callback (<state>)*
+
+  - **<state>** - * | required | The last state.
+
+
 .subscribe(<ref>,<callback>)
 ``````````
 
@@ -121,8 +166,17 @@ Subscribe triggers a callback onStateChange of a stateObject.
 Suspend allows you to temporarily ignore state changes for a specific subscription by providing the subscription's reference. To reverse a suspended subscription use unsubscribe. 
 
   - **<ref>** - string | required
+  
 
+.unsubscribe(<ref>)
+``````````
+.. code:: javascript
 
+    o.button.unsubscribe('show-menu');
+
+Unsubscribe removes all registered subscription callbacks for a given subscription reference. 
+
+  - **<ref>** - string | required
 
 
 
