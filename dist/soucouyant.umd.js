@@ -102,9 +102,13 @@ var stateMachine = function stateMachine(state, identity) {
     var stateModifier = function stateModifier(callback) {
         var lastState = state === null ? getCurrentState(identity) : state;
         var newState = callback(lastState);
-        addNewState(newState, identity);
-        if (state !== null) {
-            state = null;
+
+        // We only update state if return is undefined.
+        if (newState !== undefined) {
+            addNewState(newState, identity);
+            if (state !== null) {
+                state = null;
+            }
         }
         return newState;
     };

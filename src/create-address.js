@@ -10,9 +10,13 @@ const stateMachine = (state, identity) => {
     const stateModifier = callback => {
         const lastState = state === null ? getCurrentState(identity) : state;
         const newState = callback(lastState);
-        addNewState(newState, identity);
-        if (state !== null) {
-            state = null;
+
+        // We only update state if return is undefined.
+        if (newState !== undefined) {
+            addNewState(newState, identity);
+            if (state !== null) {
+                state = null;
+            }
         }
         return newState;
     }
@@ -53,7 +57,7 @@ const stateMachine = (state, identity) => {
      * @param {Function} callback - On subscribe callback
      */
     stateModifier.unsubscribe = ref => {
-        delete cache.subscriptions[identity][ref];  
+        delete cache.subscriptions[identity][ref];
     }
 
     return stateModifier;

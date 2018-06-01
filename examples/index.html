@@ -9,23 +9,41 @@
 <body>
     <script src="../dist/soucouyant.umd.js"></script>
     <script>
-    // const Collection = soucouyant.Collection;
     const o = soucouyant.o;
+    // Counter setup::
 
-    // Counter
-    o `cat1 > cat2 > counter ${0}`; // Register stateObject
+    o `cat1 > cat2 > counter ${0}`; // Registered counter stateObject.
+    const counter = o.cat1.cat2.counter; // stateObject reference.
 
-    const counter = o.cat1.cat2.counter;
 
-    const varyCounter = amount => counter(state => state + amount); // Modify state
+    /** 
+     * 1.1 Get State:: 
+     */
+    counter(state => void console.log('1.1 Get State:', state));
+    // Returning undefined should ignore state change.
+    counter(state => void console.log('1.1 Get State: non-returned state', state));
+    /** 
+     * 1.2 Set State:: 
+     */
+    counter(state =>  {
+        console.log('1.2 Set State: set to:', 5000)
+        return  5000;
+    });
+    // RCheck new state
+    counter(state =>  {
+        console.log('1.2 Set State: view last changed state:', state);
+    });
 
-    
 
-   
-    counter.subscribe('123', (state, identitiy, timeStamp) => {
-         console.log('subscribe')
-        console.log(' state', state, '\n identitiy', identitiy, '\n timeStamp', timeStamp);
-    })
+
+    // // const Collection = soucouyant.Collection;
+    // const o = soucouyant.o;
+
+
+    // counter.subscribe('123', (state, identitiy, timeStamp) => {
+    //     console.log('subscribe')
+    //     console.log(' state', state, '\n identitiy', identitiy, '\n timeStamp', timeStamp);
+    // })
 
 
     // counter.subscribe('another function', (state, identitiy, timeStamp) => {
@@ -39,14 +57,14 @@
     //     varyCounter(-5); 
     // }, 1000);
 
-    setTimeout(() => {
-        varyCounter(15); 
-        // counter.unsubscribe('123')
-    }, 1000);
+    // setTimeout(() => {
+    //     varyCounter(15);
+    //     // counter.unsubscribe('123')
+    // }, 1000);
 
-   setTimeout(() => {
-        varyCounter(15); 
-    }, 2000);
+    // setTimeout(() => {
+    //     varyCounter(15);
+    // }, 2000);
 
 
     // // // Random particles
