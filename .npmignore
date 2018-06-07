@@ -3,4 +3,9 @@ rollup
 src
 .eslintrc.js
 yarn.lock
+yarn-error.log
 package-lock.json
+Readme.rst
+.babelrc
+examples
+test
