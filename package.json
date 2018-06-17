@@ -2,7 +2,7 @@
   "name": "soucouyant",
   "version": "0.1.1",
   "description": "A Persistent State Machine For Humans",
-  "main": "dist/soucouyant.js",
+  "main": "dist/soucouyant.umd.js",
   "jsnext:main": "dist/soucouyant.js",
   "repository": "git@github.com:julienetie/soucouyant.git",
   "author": "Julien Etienne <j8@protonmail.ch>",
