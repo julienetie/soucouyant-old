@@ -186,7 +186,6 @@ State supports the following types:
   - Number
   - Boolean
   - null 
-  - undefined
   - NaN
   - Array (Without nested functions)
   - Object literals (without nested functions)
@@ -196,6 +195,6 @@ A state cannot be nor contain:
   - Complex object 
   - Built-in object
   - Circular references 
-
+  - undefined
 
 MIT 2018 © Julien Etienne
