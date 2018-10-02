@@ -24,7 +24,7 @@ A counter in Soucouyant
     
     varyCounter(-1);                                                             // Decrement  by 1
     
-Redux example
+vs Redux example
 ------------------
 .. code::     
     
@@ -178,6 +178,23 @@ Unsubscribe removes all registered subscription callbacks for a given subscripti
 
   - **<ref>** - string | required
 
+State values
+``````````
 
+State supports the following types: 
+  - String
+  - Number
+  - Boolean
+  - null 
+  - NaN
+  - Array (Without nested functions)
+  - Object literals (without nested functions)
+
+A state cannot be nor contain:
+  - Function
+  - Complex object 
+  - Built-in object
+  - Circular references 
+  - undefined
 
 MIT 2018 © Julien Etienne
