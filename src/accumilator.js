@@ -15,6 +15,31 @@ const persistence = {
     }
 };
 
+const cloneObject = (value, allowSingleFunction) => {
+    if(typeof value === 'function'){
+        if(!allowSingleFunction){
+            throw Error('Cannot copy \'[object Function]\' as \'allowSingleFunction\' is not enabled.');
+        }
+        return new Function('return ' + value.toString())();
+    }
+    if(value === undefined){
+        return value; 
+    }
+    if(Object.is(value,NaN)){
+        return value;
+    }
+    if(typeof value !== 'object'){
+        return value;
+    }
+    const toParse = Array.isArray(value) ? value 
+    : Object.keys(value).sort().reduce((acc, key) => {
+        acc[key] = value[key];
+        return acc;
+    }, {});
+    
+    return JSON.parse(JSON.stringify(toParse)); 
+}
+
 // Update settings.
 export const persistenceSettings = options => Object.assign(persistence.options, options);
 
@@ -26,7 +51,8 @@ export const addNewState = (state, identity) => {
     const mergeFidelity = persistence.options.mergeFidelity;
     // Check unique states and add the state if does not yet exist.
     // Directly reference the existing state.
-    const stateAsString = JSON.stringify(state);
+    const clonedState = cloneObject(state);
+    const stateAsString = JSON.stringify(clonedState);
     const uniqueStateReferencesLength = uniqueStateReferences.length;
 
     let stateExist = false;
@@ -34,7 +60,7 @@ export const addNewState = (state, identity) => {
     for (let i = 0; i < uniqueStateReferencesLength; i++) {
         const uniqueState = uniqueStateReferences[i];
         const hasExistingState = JSON
-            .stringify(uniqueState) === stateAsString;
+            .stringify(uniqueState) === stateAsString; 
         if (hasExistingState) {
             directReference = uniqueState;
             stateExist = true;
@@ -43,8 +69,8 @@ export const addNewState = (state, identity) => {
     }
 
     if (stateExist === false) {
-        uniqueStateReferences.push(state);
-        directReference = uniqueStateReferences[uniqueStateReferences.length - 1];
+        uniqueStateReferences.push(clonedState);
+        directReference = clonedState;
     }
 
     // Find frame by timestamp
