@@ -6,7 +6,7 @@ Alpha: Prototype, not ready for production.
 
 .. image:: https://raw.githubusercontent.com/julienetie/img/master/400.jpg 
 ==========
-SOUCOUYANT
+SOUCOUYANT (OLD)
 ==========
 
 Clean - Functional - Persistent State For Humans
